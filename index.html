@@ -3,127 +3,321 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pavan C Shekar — AI Researcher</title>
+<title>Pavan C Shekar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f1115;
-    --surface: #161922;
-    --text: #e6e8ee;
-    --muted: #9aa3b2;
-    --accent: #6ea8ff;
-    --border: #232733;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .container { max-width: 820px; margin: 0 auto; padding: 64px 24px; }
-
-  header { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
-  .avatar {
-    width: 96px; height: 96px; border-radius: 50%;
-    background: linear-gradient(135deg, #6ea8ff, #b06eff);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px; font-weight: 600; color: #0f1115;
-    flex-shrink: 0;
-  }
-  h1 { margin: 0 0 4px 0; font-size: 28px; font-weight: 600; }
-  .subtitle { color: var(--muted); margin: 0; font-size: 16px; }
-  .links { margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
-
-  section { margin-bottom: 40px; }
-  h2 {
-    font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--muted);
-    margin: 0 0 16px 0;
+    --bg: #0a0a0b;
+    --bg-soft: #111114;
+    --text: #ededee;
+    --text-dim: #8a8a93;
+    --text-dimmer: #5a5a63;
+    --border: #1f1f24;
+    --accent: #d4a574;
+    --accent-soft: rgba(212, 165, 116, 0.12);
   }
 
-  .interests { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag {
-    background: var(--surface); border: 1px solid var(--border);
-    padding: 6px 12px; border-radius: 999px; font-size: 13px;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
   }
 
-  .metrics { display: flex; gap: 32px; flex-wrap: wrap; }
-  .metric .value { font-size: 28px; font-weight: 600; }
-  .metric .label { font-size: 13px; color: var(--muted); }
+  /* subtle ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(800px circle at 15% 10%, rgba(212, 165, 116, 0.06), transparent 50%),
+      radial-gradient(600px circle at 85% 90%, rgba(110, 168, 255, 0.04), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 96px 32px 64px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* fade-in */
+  .fade-in { opacity: 0; transform: translateY(8px); animation: fadeIn 0.8s ease-out forwards; }
+  .fade-in:nth-child(1) { animation-delay: 0.05s; }
+  .fade-in:nth-child(2) { animation-delay: 0.15s; }
+  .fade-in:nth-child(3) { animation-delay: 0.25s; }
+  .fade-in:nth-child(4) { animation-delay: 0.35s; }
+  .fade-in:nth-child(5) { animation-delay: 0.45s; }
+  .fade-in:nth-child(6) { animation-delay: 0.55s; }
+  @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+  /* Hero */
+  .hero { margin-bottom: 80px; }
+  .name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 6vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .name .accent { color: var(--accent); font-style: italic; }
+  .tagline {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 520px;
+    font-weight: 300;
+  }
+  .tagline .role { color: var(--text); font-weight: 400; }
+
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px;
+    padding: 6px 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .status .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.5; } }
+
+  /* Sections */
+  section { margin-bottom: 64px; }
+  .label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dimmer);
+    margin-bottom: 24px;
+  }
+
+  /* Interests inline */
+  .interests {
+    display: flex; flex-wrap: wrap; gap: 6px 0;
+    font-size: 15px; color: var(--text-dim);
+  }
+  .interests span:not(:last-child)::after {
+    content: '·'; margin: 0 12px; color: var(--text-dimmer);
+  }
+
+  /* Timeline (Education / Experience) */
+  .entry {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+  .entry:last-child { border-bottom: 1px solid var(--border); }
+  .entry-year {
+    font-size: 13px;
+    color: var(--text-dimmer);
+    font-variant-numeric: tabular-nums;
+    padding-top: 2px;
+  }
+  .entry-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .entry-sub { font-size: 14px; color: var(--text-dim); }
+
+  /* Publications */
   .pub {
-    border: 1px solid var(--border); background: var(--surface);
-    border-radius: 10px; padding: 18px 20px; margin-bottom: 12px;
+    display: block;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    color: inherit;
+    text-decoration: none;
+    transition: padding-left 0.25s ease;
   }
-  .pub-title { font-weight: 600; margin-bottom: 4px; }
-  .pub-meta { font-size: 14px; color: var(--muted); }
-  .pub-meta .year { color: var(--accent); }
+  .pub:last-child { border-bottom: 1px solid var(--border); }
+  .pub:hover { padding-left: 8px; }
+  .pub-title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .pub:hover .pub-title { color: var(--accent); }
+  .pub-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .pub-meta .year { color: var(--accent); font-variant-numeric: tabular-nums; }
+  .pub-meta .venue { font-style: italic; }
 
-  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+  /* Links footer */
+  .links {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 8px;
+  }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+  }
+  .link-btn:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .link-btn svg { width: 16px; height: 16px; }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    font-size: 13px;
+    color: var(--text-dimmer);
+    text-align: left;
+  }
+
+  @media (max-width: 520px) {
+    .container { padding: 56px 24px 48px; }
+    .entry { grid-template-columns: 70px 1fr; gap: 16px; }
+    section { margin-bottom: 48px; }
+    .hero { margin-bottom: 56px; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <header>
-    <div class="avatar">PS</div>
-    <div>
-      <h1>Pavan C Shekar</h1>
-      <p class="subtitle">AI Researcher at QpiAI</p>
-      <div class="links">
-        <a href="https://scholar.google.com/citations?user=gGUpw94AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+  <section class="hero fade-in">
+    <h1 class="name">Pavan <span class="accent">C Shekar</span></h1>
+    <p class="tagline">
+      <span class="role">AI Researcher</span> working on generative models, computer vision, and agentic systems.
+    </p>
+    <div class="status">
+      <span class="dot"></span>
+      Currently building AI at QpiAI
+    </div>
+  </section>
+
+  <section class="fade-in">
+    <div class="label">Focus</div>
+    <div class="interests">
+      <span>Generative AI</span>
+      <span>Computer Vision</span>
+      <span>LLM Reasoning</span>
+      <span>Agentic Systems</span>
+      <span>Deep Learning</span>
+    </div>
+  </section>
+
+  <section class="fade-in">
+    <div class="label">Experience</div>
+    <div class="entry">
+      <div class="entry-year">2024 — Now</div>
+      <div>
+        <div class="entry-title">AI Researcher</div>
+        <div class="entry-sub">QpiAI</div>
       </div>
     </div>
-  </header>
-
-  <section>
-    <h2>About</h2>
-    <p>I'm an AI researcher working on generative models, computer vision, and deep learning. My recent work spans LLM reasoning, agentic systems, medical imaging, and hyperspectral analysis for deepfake detection.</p>
   </section>
 
-  <section>
-    <h2>Research Interests</h2>
-    <div class="interests">
-      <span class="tag">Generative AI</span>
-      <span class="tag">Computer Vision</span>
-      <span class="tag">Deep Learning</span>
-      <span class="tag">LLM Reasoning</span>
-      <span class="tag">Agentic Systems</span>
+  <section class="fade-in">
+    <div class="label">Education</div>
+    <div class="entry">
+      <div class="entry-year">— 2025</div>
+      <div>
+        <div class="entry-title">B.Tech, Electrical Engineering</div>
+        <div class="entry-sub">Indian Institute of Technology, Indore</div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>Metrics</h2>
-    <div class="metrics">
-      <div class="metric"><div class="value">2</div><div class="label">Citations</div></div>
-      <div class="metric"><div class="value">1</div><div class="label">h-index</div></div>
-      <div class="metric"><div class="value">5</div><div class="label">Publications</div></div>
-    </div>
-  </section>
+  <section class="fade-in">
+    <div class="label">Selected Publications</div>
 
-  <section>
-    <h2>Selected Publications</h2>
-
-    <div class="pub">
+    <a class="pub" href="https://arxiv.org/abs/2601.02880" target="_blank" rel="noopener">
       <div class="pub-title">ReTreVal: Reasoning Tree with Validation — A Hybrid Framework for Enhanced LLM Multi-Step Reasoning</div>
-      <div class="pub-meta">with A. HS, A. Jain, A. Krishnan · arXiv:2601.02880 · <span class="year">2026</span></div>
-    </div>
+      <div class="pub-meta">
+        <span class="year">2026</span>
+        <span class="venue">arXiv preprint</span>
+        <span>with A. HS, A. Jain, A. Krishnan</span>
+      </div>
+    </a>
 
-    <div class="pub">
+    <a class="pub" href="https://arxiv.org/abs/2510.15416" target="_blank" rel="noopener">
       <div class="pub-title">Adaptive Minds: Empowering Agents with LoRA-as-Tools</div>
-      <div class="pub-meta">with A. Krishnan · arXiv:2510.15416 · <span class="year">2025</span></div>
-    </div>
+      <div class="pub-meta">
+        <span class="year">2025</span>
+        <span class="venue">arXiv preprint</span>
+        <span>with A. Krishnan</span>
+      </div>
+    </a>
 
-    <div class="pub">
+    <a class="pub" href="https://arxiv.org/abs/2505.18587" target="_blank" rel="noopener">
       <div class="pub-title">HyperFake: Hyperspectral Reconstruction and Attention-Guided Analysis for Advanced Deepfake Detection</div>
-      <div class="pub-meta">with P. Soni, V. Kanhangad · arXiv:2505.18587 · <span class="year">2025</span></div>
-    </div>
+      <div class="pub-meta">
+        <span class="year">2025</span>
+        <span class="venue">arXiv preprint</span>
+        <span>with P. Soni, V. Kanhangad</span>
+      </div>
+    </a>
 
-    <div class="pub">
+    <a class="pub" href="https://arxiv.org/abs/2412.16624" target="_blank" rel="noopener">
       <div class="pub-title">Automated Bleeding Detection and Classification in Wireless Capsule Endoscopy with YOLOv8-X</div>
-      <div class="pub-meta">with V. Kanhangad, S. Maheshwari, T. S. Kumar · arXiv:2412.16624 · <span class="year">2024</span></div>
-    </div>
+      <div class="pub-meta">
+        <span class="year">2024</span>
+        <span class="venue">arXiv preprint</span>
+        <span>with V. Kanhangad, S. Maheshwari, T. S. Kumar</span>
+      </div>
+    </a>
 
-    <div class="pub">
+    <a class="pub" href="https://scholar.google.com/citations?user=gGUpw94AAAAJ" target="_blank" rel="noopener">
       <div class="pub-title">HyperSpectraNet: Leveraging Spectral Attention for Hyper-Spectral Image Reconstruction</div>
-      <div class="pub-meta">with P. Soni, V. Kanhangad · Intl. Conf. on Signal Processing and Communications · <span class="year">2024</span></div>
+      <div class="pub-meta">
+        <span class="year">2024</span>
+        <span class="venue">Intl. Conf. on Signal Processing and Communications</span>
+        <span>with P. Soni, V. Kanhangad</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="fade-in">
+    <div class="label">Elsewhere</div>
+    <div class="links">
+      <a class="link-btn" href="https://github.com/pavan98765" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="link-btn" href="https://www.linkedin.com/in/pavancshekar" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="link-btn" href="https://scholar.google.com/citations?user=gGUpw94AAAAJ&hl=en" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg>
+        Google Scholar
+      </a>
     </div>
   </section>
 
