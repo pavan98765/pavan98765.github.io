@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pavan C Shekar — AI Researcher</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --surface: #161922;
+    --text: #e6e8ee;
+    --muted: #9aa3b2;
+    --accent: #6ea8ff;
+    --border: #232733;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 820px; margin: 0 auto; padding: 64px 24px; }
+
+  header { display: flex; align-items: center; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+  .avatar {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, #6ea8ff, #b06eff);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 600; color: #0f1115;
+    flex-shrink: 0;
+  }
+  h1 { margin: 0 0 4px 0; font-size: 28px; font-weight: 600; }
+  .subtitle { color: var(--muted); margin: 0; font-size: 16px; }
+  .links { margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+
+  section { margin-bottom: 40px; }
+  h2 {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    margin: 0 0 16px 0;
+  }
+
+  .interests { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 999px; font-size: 13px;
+  }
+
+  .metrics { display: flex; gap: 32px; flex-wrap: wrap; }
+  .metric .value { font-size: 28px; font-weight: 600; }
+  .metric .label { font-size: 13px; color: var(--muted); }
+
+  .pub {
+    border: 1px solid var(--border); background: var(--surface);
+    border-radius: 10px; padding: 18px 20px; margin-bottom: 12px;
+  }
+  .pub-title { font-weight: 600; margin-bottom: 4px; }
+  .pub-meta { font-size: 14px; color: var(--muted); }
+  .pub-meta .year { color: var(--accent); }
+
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="avatar">PS</div>
+    <div>
+      <h1>Pavan C Shekar</h1>
+      <p class="subtitle">AI Researcher at QpiAI</p>
+      <div class="links">
+        <a href="https://scholar.google.com/citations?user=gGUpw94AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>About</h2>
+    <p>I'm an AI researcher working on generative models, computer vision, and deep learning. My recent work spans LLM reasoning, agentic systems, medical imaging, and hyperspectral analysis for deepfake detection.</p>
+  </section>
+
+  <section>
+    <h2>Research Interests</h2>
+    <div class="interests">
+      <span class="tag">Generative AI</span>
+      <span class="tag">Computer Vision</span>
+      <span class="tag">Deep Learning</span>
+      <span class="tag">LLM Reasoning</span>
+      <span class="tag">Agentic Systems</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Metrics</h2>
+    <div class="metrics">
+      <div class="metric"><div class="value">2</div><div class="label">Citations</div></div>
+      <div class="metric"><div class="value">1</div><div class="label">h-index</div></div>
+      <div class="metric"><div class="value">5</div><div class="label">Publications</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected Publications</h2>
+
+    <div class="pub">
+      <div class="pub-title">ReTreVal: Reasoning Tree with Validation — A Hybrid Framework for Enhanced LLM Multi-Step Reasoning</div>
+      <div class="pub-meta">with A. HS, A. Jain, A. Krishnan · arXiv:2601.02880 · <span class="year">2026</span></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Adaptive Minds: Empowering Agents with LoRA-as-Tools</div>
+      <div class="pub-meta">with A. Krishnan · arXiv:2510.15416 · <span class="year">2025</span></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">HyperFake: Hyperspectral Reconstruction and Attention-Guided Analysis for Advanced Deepfake Detection</div>
+      <div class="pub-meta">with P. Soni, V. Kanhangad · arXiv:2505.18587 · <span class="year">2025</span></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Automated Bleeding Detection and Classification in Wireless Capsule Endoscopy with YOLOv8-X</div>
+      <div class="pub-meta">with V. Kanhangad, S. Maheshwari, T. S. Kumar · arXiv:2412.16624 · <span class="year">2024</span></div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">HyperSpectraNet: Leveraging Spectral Attention for Hyper-Spectral Image Reconstruction</div>
+      <div class="pub-meta">with P. Soni, V. Kanhangad · Intl. Conf. on Signal Processing and Communications · <span class="year">2024</span></div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Pavan C Shekar
+  </footer>
+
+</div>
+</body>
+</html>
