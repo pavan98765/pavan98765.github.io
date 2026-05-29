@@ -46,6 +46,33 @@
     z-index: 0;
   }
 
+  /* mouse-follow glow */
+  .cursor-glow {
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+    z-index: 0;
+    opacity: 0;
+    filter: blur(40px);
+  }
+  body:hover .cursor-glow { opacity: 1; }
+
+  /* noise texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
   .container {
     max-width: 680px;
     margin: 0 auto;
@@ -73,8 +100,25 @@
     line-height: 1.05;
     letter-spacing: -0.02em;
     margin-bottom: 16px;
+    position: relative;
   }
-  .name .accent { color: var(--accent); font-style: italic; }
+  .name .accent {
+    background: linear-gradient(120deg, #d4a574 0%, #f0c896 50%, #d4a574 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-style: italic;
+    animation: shimmer 6s ease-in-out infinite;
+    display: inline-block;
+    padding-right: 0.12em;
+    margin-right: -0.08em;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
   .tagline {
     font-size: 18px;
     color: var(--text-dim);
@@ -122,22 +166,53 @@
   }
 
   /* Timeline (Education / Experience) */
+  .timeline { position: relative; }
   .entry {
     display: grid;
-    grid-template-columns: 90px 1fr;
+    grid-template-columns: 150px 1fr;
     gap: 24px;
     padding: 18px 0;
     border-top: 1px solid var(--border);
+    position: relative;
+    transition: padding-left 0.3s ease;
   }
   .entry:last-child { border-bottom: 1px solid var(--border); }
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: -20px; top: 50%;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateY(-50%) scale(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .entry:hover { padding-left: 8px; }
+  .entry:hover::before { transform: translateY(-50%) scale(1); }
   .entry-year {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-dimmer);
     font-variant-numeric: tabular-nums;
-    padding-top: 2px;
+    padding-top: 3px;
+    letter-spacing: 0.02em;
   }
-  .entry-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .entry-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; transition: color 0.25s ease; }
+  .entry:hover .entry-title { color: var(--accent); }
   .entry-sub { font-size: 14px; color: var(--text-dim); }
+  .entry-current {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 7px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border-radius: 4px;
+    vertical-align: 2px;
+    text-transform: uppercase;
+  }
 
   /* Publications */
   .pub {
@@ -146,16 +221,30 @@
     border-top: 1px solid var(--border);
     color: inherit;
     text-decoration: none;
-    transition: padding-left 0.25s ease;
+    position: relative;
+    transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .pub:last-child { border-bottom: 1px solid var(--border); }
-  .pub:hover { padding-left: 8px; }
+  .pub::after {
+    content: '↗';
+    position: absolute;
+    right: 0; top: 22px;
+    color: var(--text-dimmer);
+    font-size: 18px;
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .pub:hover { padding-left: 12px; }
+  .pub:hover::after { opacity: 1; transform: translate(0, 0); color: var(--accent); }
   .pub-title {
     font-size: 15px;
     font-weight: 500;
     line-height: 1.45;
     margin-bottom: 6px;
     color: var(--text);
+    padding-right: 32px;
+    transition: color 0.25s ease;
   }
   .pub:hover .pub-title { color: var(--accent); }
   .pub-meta {
@@ -163,7 +252,7 @@
     color: var(--text-dim);
     display: flex; flex-wrap: wrap; gap: 12px;
   }
-  .pub-meta .year { color: var(--accent); font-variant-numeric: tabular-nums; }
+  .pub-meta .year { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 500; }
   .pub-meta .venue { font-style: italic; }
 
   /* Links footer */
@@ -181,15 +270,29 @@
     text-decoration: none;
     font-size: 14px;
     font-weight: 400;
-    transition: all 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .link-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-soft), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
   }
   .link-btn:hover {
-    background: var(--accent-soft);
     border-color: var(--accent);
     color: var(--accent);
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
   }
-  .link-btn svg { width: 16px; height: 16px; }
+  .link-btn:hover::before { opacity: 1; }
+  .link-btn:active { transform: translateY(0) scale(0.98); }
+  .link-btn svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+  .link-btn:hover svg { transform: rotate(-5deg) scale(1.1); }
 
   footer {
     margin-top: 80px;
@@ -201,13 +304,17 @@
 
   @media (max-width: 520px) {
     .container { padding: 56px 24px 48px; }
-    .entry { grid-template-columns: 70px 1fr; gap: 16px; }
+    .entry { grid-template-columns: 1fr; gap: 4px; }
+    .entry-year { padding-top: 0; font-size: 11px; }
     section { margin-bottom: 48px; }
     .hero { margin-bottom: 56px; }
+    .timeline { padding-left: 0 !important; }
+    .entry::before { display: none; }
   }
 </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
 <div class="container">
 
   <section class="hero fade-in">
@@ -234,22 +341,47 @@
 
   <section class="fade-in">
     <div class="label">Experience</div>
-    <div class="entry">
-      <div class="entry-year">2024 — Now</div>
-      <div>
-        <div class="entry-title">AI Researcher</div>
-        <div class="entry-sub">QpiAI</div>
+    <div class="timeline" style="padding-left: 20px;">
+      <div class="entry">
+        <div class="entry-year">Apr 2026 — Now</div>
+        <div>
+          <div class="entry-title">AI Researcher <span class="entry-current">Current</span></div>
+          <div class="entry-sub">QpiAI · Bengaluru</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-year">Aug 2025 — Mar 2026</div>
+        <div>
+          <div class="entry-title">Applied AI Researcher</div>
+          <div class="entry-sub">QpiAI · Bengaluru</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-year">Dec 2024 — Jul 2025</div>
+        <div>
+          <div class="entry-title">AI Engineer</div>
+          <div class="entry-sub">QpiAI · Bengaluru</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-year">May 2024 — Nov 2024</div>
+        <div>
+          <div class="entry-title">AI Intern</div>
+          <div class="entry-sub">QpiAI · Bengaluru</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="fade-in">
     <div class="label">Education</div>
-    <div class="entry">
-      <div class="entry-year">— 2025</div>
-      <div>
-        <div class="entry-title">B.Tech, Electrical Engineering</div>
-        <div class="entry-sub">Indian Institute of Technology, Indore</div>
+    <div class="timeline" style="padding-left: 20px;">
+      <div class="entry">
+        <div class="entry-year">2020 — 2024</div>
+        <div>
+          <div class="entry-title">B.Tech, Electrical Engineering</div>
+          <div class="entry-sub">Indian Institute of Technology, Indore</div>
+        </div>
       </div>
     </div>
   </section>
@@ -326,5 +458,72 @@
   </footer>
 
 </div>
+
+<script>
+  // Mouse-follow glow
+  (function() {
+    const glow = document.getElementById('cursorGlow');
+    let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+    let currentX = targetX, currentY = targetY;
+    let rafId = null;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      if (!rafId) animate();
+    }, { passive: true });
+
+    function animate() {
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+      glow.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        rafId = null;
+      }
+    }
+
+    // Show glow on first interaction
+    window.addEventListener('mouseenter', () => glow.style.opacity = '1', { once: true });
+    document.body.addEventListener('mouseenter', () => glow.style.opacity = '1');
+  })();
+
+  // Magnetic effect on link buttons
+  (function() {
+    const buttons = document.querySelectorAll('.link-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.25 - 2}px) scale(1.02)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  })();
+
+  // Subtle parallax on name based on mouse
+  (function() {
+    const name = document.querySelector('.name');
+    if (!name) return;
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 8;
+      const y = (e.clientY / window.innerHeight - 0.5) * 6;
+      name.style.transform = `translate(${x}px, ${y}px)`;
+    }, { passive: true });
+  })();
+
+  // Reduce motion support
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.animation = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
+</script>
 </body>
 </html>
